@@ -1,9 +1,9 @@
-[submodule "vendor/esp-idf"]
-	path = vendor/esp-idf
-	url = https://github.com/espressif/esp-idf.git
 [submodule "components/arduino"]
 	path = components/arduino
 	url = https://github.com/espressif/arduino-esp32.git
 [submodule "components/painlessMesh/painlessMesh"]
 	path = components/painlessMesh/painlessMesh
 	url = git@gitlab.com:BlackEdder/painlessMesh.git
+[submodule "vendor/esp-idf"]
+	path = vendor/esp-idf
+	url = https://github.com/espressif/esp-idf.git
