@@ -1,5 +1,7 @@
 #include <Arduino.h>
 #include <painlessMesh.h>
+#include <btstack.h>
+#include <btstack_config.h>
 
 #define   MESH_SSID       "whateverYouLike"
 #define   MESH_PASSWORD   "somethingSneaky"

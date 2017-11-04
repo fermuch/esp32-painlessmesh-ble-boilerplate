@@ -11,4 +11,5 @@ PATH  := $(PATH):$(PWD)/vendor/xtensa-esp32-elf/bin
 # for older shells, set the correct $PATH
 SHELL := env PATH=$(PATH) /bin/bash
 
+
 include $(IDF_PATH)/make/project.mk
