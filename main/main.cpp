@@ -14,8 +14,8 @@
 
 // set up the Mesh
 painlessMesh  mesh;
-bool calc_delay = false;
-SimpleList<uint32_t> nodes;
+void sendMessage(); // Prototype
+Task taskSendMessage(TASK_MILLISECOND * 100, TASK_FOREVER, &sendMessage); // start with a one second interval
 
 BLECharacteristic *pCharacteristic;
 bool deviceConnected = false;
@@ -32,6 +32,15 @@ class MyServerCallbacks: public BLEServerCallbacks {
   }
 };
 
+void sendMessage() {
+  if (deviceConnected) {
+    Serial.printf("BLE NOTIFY: %d\n", value);
+    pCharacteristic->setValue(&value, 1);
+    pCharacteristic->notify();
+    value++;
+  }
+}
+
 void setup() {
   Serial.begin(115200);
   Serial.setDebugOutput(true);
@@ -41,6 +50,10 @@ void setup() {
 
   Serial.print("ESP32 SDK: ");
   Serial.println(ESP.getSdkVersion());
+
+  mesh.setDebugMsgTypes(ERROR | DEBUG | CONNECTION | COMMUNICATION);
+  mesh.init(MESH_SSID, MESH_PASSWORD, MESH_PORT);
+  Serial.println("painlessMesh started");
 
   // Create the BLE Device
   BLEDevice::init("ESPMESH");
@@ -68,22 +81,12 @@ void setup() {
   // Start advertising
   pServer->getAdvertising()->start();
 
-  Serial.println("BLE started");
+  mesh.scheduler.addTask(taskSendMessage);
+  taskSendMessage.enable();
 
-  mesh.setDebugMsgTypes(ERROR | DEBUG | CONNECTION | COMMUNICATION);
-  mesh.init(MESH_SSID, MESH_PASSWORD, MESH_PORT);
-  Serial.println("painlessMesh started");
+  Serial.println("BLE started");
 }
 
 void loop() {
   mesh.update();
-
-  if (deviceConnected) {
-    Serial.printf("*** NOTIFY: %d ***\n", value);
-    pCharacteristic->setValue(&value, 1);
-    pCharacteristic->notify();
-    //pCharacteristic->indicate();
-    value++;
-  }
-  delay(100);
 }
