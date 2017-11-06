@@ -2,18 +2,18 @@
 
 I had a lot of frustration trying to run both painlessMesh and BLE at the same time,
 hitting errors of size limit on platformio, and not being able to target specific
-versions of ESP-IDF which add BLE support. In general, I found the platformio too green
-to be usable in a real project just yet.
+versions of ESP-IDF which add BLE support. In general, I found the platformio too unstable
+to be usable in a real world project just yet.
 
 
-This repo includes everything that is needed to build and run an esp32 with BLE and painlessMesh,
-from ESP-IDF to the libraries itself. You can use it as a boilerplate.
+This repo includes everything that you might need to build and run an esp32 with BLE and painlessMesh,
+from ESP-IDF and its compiler to the libraries itself. You can use it as a boilerplate.
 
 ## HOW TO USE IT
 
 * Clone this repo and execute `git submodule update --init --recursive` to fetch all the files. The esp-idf repo is quite big, so it might take some time.
-* Run `make menuconfig` to personalize your build. I've pre-selected some options, but you can configure it as you'd like. Please note, I've set it up for my board, which has 4MB of flash. You might need to change it.
-* Run `make` to build everything. If you'd like to flash, run `make flash`. If you'd like to check the serial output, use `make monitor`. If you want to combine everything, use `make flash monitor`. You can also add -jN to speed up the compilation by using parallel jobs. The final command would be: `make -j4 flash monitor`.
+* Run `make menuconfig` to personalize your build. I've pre-selected some options, but you can configure it as you'd like. Please note, I've set it up for my board. You might need to change it.
+* Run `make` to build everything. If you'd like to flash, run `make flash`. If you'd like to check the serial output, use `make monitor`. If you want to combine everything, use `make flash monitor`. You can also add -jN to speed up the compilation by using parallel jobs. The final command would be: `make -j4 flash monitor` (where 4 is your number of cores).
 
 NOTE: On menuconfig, most probably you'll need to change the python path. I'm using python2, since that's what's available in my OS. If python 2 is your default, you might need to change it to just `python`.
 
