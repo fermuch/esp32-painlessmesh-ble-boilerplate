@@ -51,12 +51,15 @@ void setup() {
   Serial.print("ESP32 SDK: ");
   Serial.println(ESP.getSdkVersion());
 
-  mesh.setDebugMsgTypes(ERROR | DEBUG | CONNECTION | COMMUNICATION);
+  mesh.setDebugMsgTypes(ERROR | CONNECTION | COMMUNICATION);
   mesh.init(MESH_SSID, MESH_PASSWORD, MESH_PORT);
   Serial.println("painlessMesh started");
 
+  String BLEName = "ESPMESH ";
+  BLEName + mesh.getNodeId();
+
   // Create the BLE Device
-  BLEDevice::init("ESPMESH");
+  BLEDevice::init(BLEName.c_str());
   // Create the BLE Server
   BLEServer *pServer = new BLEServer();
   pServer->setCallbacks(new MyServerCallbacks());
